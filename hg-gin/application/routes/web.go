@@ -2,7 +2,7 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
-	"my-gin/hg-gin/application/controller"
+	"hg-gin/hg-gin/application/controller"
 )
 
 func WebRoute(router *gin.Engine) {

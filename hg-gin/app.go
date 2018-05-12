@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"my-gin/hg-gin/application/routes"
+	"hg-gin/hg-gin/application/routes"
 )
 
 func main() {

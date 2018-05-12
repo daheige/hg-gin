@@ -1,3 +1,7 @@
+vendor/github.com/*
+vendor/github.com/
+vendor/gopkg.in/*
+vendor/gopkg.in/
 runtime/
 runtime/*
 public/static/*
