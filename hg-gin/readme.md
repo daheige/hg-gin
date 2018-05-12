@@ -3,26 +3,29 @@
 # 网站目录
 ```
     .
-  ├── app.go
-  ├── application
-  │   ├── config
-  │   ├── controller
-  │   ├── library
-  │   ├── logic
-  │   ├── middleware
-  │   ├── model
-  │   ├── routes
-  │   ├── service
-  │   └── views
-  ├── bin
-  │   └── app-init.sh
-  ├── docs
-  │   ├── nginx.conf
-  │   └── readme.md
-  ├── public
-  │   └── readme.md
-  ├── runtime
-  └── vendor
-      ├── input.go
-      └── slog
+    ├── app.go
+    ├── application
+    │   ├── config
+    │   ├── controller
+    │   ├── logic
+    │   ├── middleware
+    │   ├── model
+    │   ├── routes
+    │   ├── service
+    │   └── views
+    ├── bin
+    │   └── app-init.sh
+    ├── common
+    │   └── slog
+    ├── docs
+    │   ├── nginx.conf
+    │   └── readme.md
+    ├── public
+    │   └── readme.md
+    ├── readme.md
+    ├── runtime
+    └── vendor
+        ├── github.com
+        ├── gopkg.in
+        └── vendor.json
  ```
