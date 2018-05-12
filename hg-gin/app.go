@@ -7,6 +7,7 @@ import (
 )
 
 //初始化环境判断 release(production),debug(development),test(testing)
+//touch /etc/go.env.testing #根据不同环境创建文件
 func InitEnv() {
 	//默认是开发环境development
 	if _, err := os.Stat("/etc/go.env.production"); err == nil { //生产环境
