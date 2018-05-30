@@ -1,8 +1,10 @@
 package routes
 
 import (
-	"github.com/gin-gonic/gin"
 	"hg-gin/hg-gin/application/controller"
+	"hg-gin/hg-gin/application/middleware"
+
+	"github.com/gin-gonic/gin"
 )
 
 func WebRoute(router *gin.Engine) {
@@ -25,7 +27,13 @@ func WebRoute(router *gin.Engine) {
 	})
 
 	// 将相同控制器的路由放在一个Router方法中,方便管理
-	homeController := controller.HomeController{}
+	homeController := &controller.HomeController{}
 	homeController.Router(router)
+
+	//log ware
+	logware := middleware.LogWare{}
+	router.GET("/index", logware.AccessUri(), func(ctx *gin.Context) {
+		homeController.Success(ctx, "", "fefe")
+	})
 
 }

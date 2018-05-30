@@ -1,9 +1,10 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
 	"hg-gin/hg-gin/application/routes"
 	"os"
+
+	"github.com/gin-gonic/gin"
 )
 
 //初始化环境判断 release(production),debug(development),test(testing)
