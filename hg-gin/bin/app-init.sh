@@ -1,7 +1,7 @@
 #!/bin/bash
 #运维上线需执行该脚本
 root_dir=$(cd "$(dirname "$0")"; cd ..; pwd)
-
+appName=hg-gin
 mkdir -p $root_dir/runtime/logs
 chmod 777 -R $root_dir/runtime
 
@@ -20,3 +20,6 @@ go install
 #build app
 cd $root_dir
 go install
+
+#run app
+$appName
