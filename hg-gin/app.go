@@ -4,6 +4,8 @@ import (
 	"hg-gin/hg-gin/application/routes"
 	"os"
 
+	"github.com/DeanThompson/ginpprof"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -25,11 +27,20 @@ func init() {
 	InitEnv()
 }
 
+//命令终端访问go tool pprof http://127.0.0.1:8080/debug/pprof/heap
+
 func main() {
 	router := gin.New()
 
 	//待完成
 	routes.WebRoute(router)
+	router.GET("/ping", func(c *gin.Context) {
+		c.String(200, "pong")
+	})
+
+	// automatically add routers for net/http/pprof
+	// e.g. /debug/pprof, /debug/pprof/heap, etc.
+	ginpprof.Wrapper(router)
 
 	router.Run(":8080")
 }

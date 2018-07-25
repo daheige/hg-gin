@@ -5,3 +5,4 @@ vendor/gopkg.in/
 runtime/
 runtime/*
 public/static/*
+mytest/*.prof
