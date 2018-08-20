@@ -30,7 +30,6 @@
         └── vendor.json
  ```
  # nginx反向代理
- ```
     1. 配置nginx(mygo.conf)参考nginx.conf
     2. 配置/etc/hosts
         127.0.0.1  www.mygo.com mygo.com *.mygo.com
@@ -54,7 +53,30 @@
       Socket errors: connect 598981, read 0, write 0, timeout 161
     Requests/sec:    456.80
     Transfer/sec:    126.24KB
-```
+    
+    1. 空跑
+    wrk -c 100 -d 10s -t8 http://localhost:8080
+    Running 10s test @ http://localhost:8080
+      8 threads and 100 connections
+      Thread Stats   Avg      Stdev     Max   +/- Stdev
+        Latency     4.59ms    4.57ms  75.50ms   87.32%
+        Req/Sec     3.12k   454.37     5.01k    73.38%
+      248620 requests in 10.05s, 44.34MB read
+    Requests/sec:  24736.41
+    Transfer/sec:      4.41MB
+    100个连接请求10s,qps 24736
+
+    2. 从redis中获取数据
+    wrk -c 100 -d 10s -t8 http://localhost:8080/v1/get-user
+    Running 10s test @ http://localhost:8080/v1/get-user
+      8 threads and 100 connections
+      Thread Stats   Avg      Stdev     Max   +/- Stdev
+        Latency    61.40ms   64.90ms 474.54ms   84.05%
+        Req/Sec   257.15    323.00     1.06k    80.98%
+      20545 requests in 10.06s, 3.25MB read
+    Requests/sec:   2041.45
+    Transfer/sec:    330.94KB
+    100个连接,请求10s qps 2041
 
 # 关于wrk
     wrk，简单易用，没有Load Runner那么复杂，他和 apache benchmark（ab）同属于性能测试工具，但是比 ab 功能更加强大，并且可以支持lua脚本来创建复杂的测试场景。

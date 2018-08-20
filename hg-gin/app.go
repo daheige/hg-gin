@@ -3,6 +3,7 @@ package main
 import (
 	"hg-gin/hg-gin/application/routes"
 	"os"
+	"thinkgo/common"
 
 	"github.com/DeanThompson/ginpprof"
 
@@ -25,6 +26,14 @@ func InitEnv() {
 
 func init() {
 	InitEnv()
+	//初始化redis配置
+	conf := &common.RedisConf{
+		Host: "127.0.0.1",
+		Port: 6379,
+	}
+
+	//设置redis pool
+	conf.SetRedisPool("default")
 }
 
 //命令终端访问go tool pprof http://127.0.0.1:8080/debug/pprof/heap

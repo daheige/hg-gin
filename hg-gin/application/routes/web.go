@@ -10,15 +10,56 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type res struct {
+	Id    int
+	Books []string
+	Desc  string
+}
+
 func WebRoute(router *gin.Engine) {
-	router.GET("/test", func(ctx *gin.Context) {
-		ctx.JSON(200, gin.H{
-			"code":    200,
-			"message": "ok",
+	homeController := &controller.HomeController{}
+	router.GET("/json", homeController.Index)
+
+	//设置分组路由
+	v1 := router.Group("v1").Use(homeController.Before()) //采用中间件
+	v1.GET("/test", homeController.Test)
+
+	// http://mygo.com/v1/hg
+	//{"data":[{"Id":1,"Books":["bo","php"],"Desc":"program"},{"Id":2,"Books":["golang","php"],"Desc":"study notes"}]}
+	v1.GET("/hg", func(ctx *gin.Context) {
+		data := []res{
+			{
+				Id:    1,
+				Books: []string{"bo", "php"},
+				Desc:  "program",
+			},
+			{
+				Id:    2,
+				Books: []string{"golang", "php"},
+				Desc:  "study notes",
+			},
+		}
+
+		ctx.JSON(controller.HTTP_SUCCESS_CODE, gin.H{
+			"data": data,
 		})
+
 	})
 
-	router.GET("/", func(ctx *gin.Context) {
+	v1.GET("/user-info", func(ctx *gin.Context) {
+		homeController.Success(ctx, "", []string{"golang", "javascript"})
+	})
+
+	v1.GET("/get-user", homeController.GetUserInfo)
+	v1.GET("/set-user", homeController.SetUserInfo)
+
+	router.GET("/error", func(ctx *gin.Context) {
+		homeController.Error(ctx, controller.HTTP_ERROR_CODE, "参数错误,错误的请求")
+	})
+
+	//log ware
+	logware := middleware.LogWare{}
+	router.GET("/", logware.AccessUri(), func(ctx *gin.Context) {
 		ctx.JSON(200, gin.H{
 			"code":    200,
 			"message": "welcome hg-gin page",
@@ -27,17 +68,6 @@ func WebRoute(router *gin.Engine) {
 				"go",
 			},
 		})
-	})
-
-	// 将相同控制器的路由放在一个Router方法中,方便管理
-	homeController := &controller.HomeController{}
-	homeController.Router(router)
-
-	//log ware
-	logware := middleware.LogWare{}
-	// http://mygo.com/index
-	router.GET("/index", logware.AccessUri(), func(ctx *gin.Context) {
-		homeController.Success(ctx, "", "fefe")
 	})
 
 	//http://mygo.com/form?username=daheige&sex=1
