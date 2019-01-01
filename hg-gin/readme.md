@@ -30,7 +30,7 @@
         └── vendor.json
  ```
  # nginx反向代理
-    1. 配置nginx(mygo.conf)参考nginx.conf
+    1. 配置nginx(mygo.conf)参考nginx.conf
     2. 配置/etc/hosts
         127.0.0.1  www.mygo.com mygo.com *.mygo.com
     3. 执行go run app.go 访问http://mygo.com/
